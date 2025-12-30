@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+ <html lang="zh-CN">
+ <head>
+     <meta charset="UTF-8">
+     <title>戏剧</title>
+     <style>
+         body {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             height: 100vh;
+             margin: 0;
+             /* background-image: url(ea4756d27d181ade8773ef245d3f713e.jpg);
+                background-size: cover;
+                background-position: center; */
+             color: #fff;
+             font-family: monospace;
+             font-size: 2em;
+         }
+         #countdown {
+             font-size: 3em;
+             color: #ff3d00;
+         }
+     </style>
+ </head>
+ <body>
+     <div id="countdown">6</div>
+     <script>
+         let timeLeft = 6;
+         const countdownEl = document.getElementById('countdown');
+         const timer = setInterval(() => {
+             timeLeft--;
+             countdownEl.textContent = timeLeft;
+             if (timeLeft <= 0) {
+                 clearInterval(timer);
+                 countdownEl.textContent = "倒计时结束，精彩内容即将呈现！";
+                 setInterval( () => {
+                     window.location.href = "视频.html";
+                 }, 2000);
+             }
+         }, 1000);
+     </script>
+ </body>
+ </html>
