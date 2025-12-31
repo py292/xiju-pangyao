@@ -4,15 +4,24 @@ on:
     branches:
       - main
 
+# 明确给 GITHUB_TOKEN 写权限，用于 push 到 gh-pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # 保留凭据以便后续 push 使用 GITHUB_TOKEN
+          persist-credentials: true
 
       # 如果需要构建（例如 npm run build），在这里添加构建步骤并把 publish_dir 改为构建产物目录（例如 'dist'）
-      # - name: Install node and build
+      # - name: Setup Node
       #   uses: actions/setup-node@v4
       #   with:
       #     node-version: '18'
@@ -25,4 +34,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: '.'   # 若你的静态文件位于 dist/，改为 'dist'
-          # 可选：如果想推到特定分支或保留某些文件，请参考 peaceiris 文档
